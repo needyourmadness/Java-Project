@@ -25,11 +25,13 @@ public class TopPanel extends JPanel
 {
 	ButtonTopPanel buttonPanel;
 	MenuTopPanel menuPanel;
-	TopPanel()
+	MidPanel middle;
+	TopPanel(MidPanel mid)
 	{
+		middle=mid;
 		buttonPanel=new ButtonTopPanel();
 		//this.setBorder(BorderFactory.createLineBorder(Color.black));
-		menuPanel=new MenuTopPanel();
+		menuPanel=new MenuTopPanel(middle);
 		this.setLayout(new GridLayout(2,1));
 		this.add(menuPanel);
 		this.add(buttonPanel);

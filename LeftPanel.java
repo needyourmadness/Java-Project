@@ -40,16 +40,7 @@ public class LeftPanel extends JPanel
 		panelgraph2x=new GraphPanel();
 		panelgraph2y=new GraphPanel();
 		
-		JLabel title1x= new JLabel("	Wykres x1(t)	");
-		JLabel title1y= new JLabel("	Wykres y1(t)	");
-		JLabel title2x= new JLabel("	Wykres x2(t)	");
-		JLabel title2y= new JLabel("	Wykres y2(t)	");
-		
-		panelgraph1x.add(title1x,BorderLayout.PAGE_START);
-		panelgraph1y.add(title1y,BorderLayout.PAGE_START);
-		panelgraph2x.add(title2x,BorderLayout.PAGE_START);
-		panelgraph2y.add(title2y,BorderLayout.PAGE_START);
-		
+
 	
 		
 		this.add(panelgraph1x);

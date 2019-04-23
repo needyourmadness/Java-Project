@@ -28,9 +28,11 @@ public class MenuTopPanel extends JPanel
 	JMenuItem menuItemSave,menuItemExit,menuItemOpen,menuItemStart;
 	JRadioButtonMenuItem rbMenuItem;
 	JCheckBoxMenuItem cbMenuItem;
-	
-	MenuTopPanel()
+	MidPanel mid;
+	boolean check=true;
+	MenuTopPanel(MidPanel middle)
 	{
+		mid=middle;
 		this.setLayout(new GridLayout(1,1));
 		
 		//Menu
@@ -61,10 +63,24 @@ public class MenuTopPanel extends JPanel
 			}
 		};
 		menuItemExit.addActionListener(exitListener);
-		
+
 		
 		
 		menuItemStart=new JMenuItem("Start");
+		ActionListener startListener=new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if(check)
+				{
+					mid.startAnimation();
+					check=false;
+				}
+				
+			}
+		};
+		menuItemStart.addActionListener(startListener);
 		menuItemStart.getAccessibleContext().setAccessibleDescription("Start");
 		
 		

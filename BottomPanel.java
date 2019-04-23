@@ -28,7 +28,10 @@ public class BottomPanel extends JPanel {
 	JSlider stepSlider;
 	JLabel stepEcho;
 	JPanel panel1,panel2,panel3;
-	public BottomPanel() {
+	MidPanel middle;
+	public BottomPanel(MidPanel mid) 
+	{
+		middle=mid;
 		this.setLayout(new GridLayout(1,3));
 		panel1=new JPanel();
 		panel2=new JPanel();
@@ -40,11 +43,11 @@ public class BottomPanel extends JPanel {
 		step = new JLabel("Krok symulacji",SwingConstants.CENTER);
 		panel2.add(step, BorderLayout.PAGE_START);
 		
-		stepSlider = new JSlider(0, 100, 0);
+		stepSlider = new JSlider(1, 1000, 10);
 		panel2.add(stepSlider, BorderLayout.CENTER);
 		
 		stepEcho = new JLabel(String.format("%.2f s", (double) stepSlider.getValue()),SwingConstants.CENTER);
 		panel2.add(stepEcho, BorderLayout.LINE_END);
-		stepSlider.addChangeListener(new ValueListener(stepEcho, stepSlider, 100, "s"));
+		stepSlider.addChangeListener(new ValueListener(stepEcho, stepSlider, 1000, "s",middle,3));
 	}
 }

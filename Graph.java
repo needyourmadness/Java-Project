@@ -1,77 +1,71 @@
 package project;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.border.EtchedBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 public class Graph extends JPanel
 {
 	int x;
 	int y;
-	int i;
-	int j;
-	Random rand;
-	Color[] rgb;
 	Graph()
 	{
-		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		rgb=new Color[3];
-	}
-	public void paintComponent(Graphics g)
-    { 
+		this.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		XYSeries series = new XYSeries("Nazwa serii");
+		series.add(1, 1);
+		series.add(1, 2);
+		series.add(2, 4);
+		series.add(6, 10);
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(series);
+		//Tworzymy wykres XY
+		JFreeChart chart = ChartFactory.createXYLineChart(
+		"Wykres XY",//Tytul
+		"Opis osi X", // opisy osi
+		"Opis osi Y",
+		dataset, // Dane
+		PlotOrientation.VERTICAL, // Orjentacja wykresu
+		false, // legenda
+		false, // tooltips
+		false
 		
-		for(int i=0;i<3;i++)
-		{
-			rgb[i]=new Color(x,y,Math.abs(x-y));
-		}
-		//System.out.println("dziala");
-		this.setBackground(Color.white);
-		g.setColor(Color.white);
-   	 	g.fillRect(0,0,this.getWidth(),this.getHeight());
-   	 	g.setColor(rgb[1]);
-   	 	g.fillOval(x,y,100,100);
-   	 	if(x>=this.getWidth())
-   	 	{
-   	 		//System.out.println("elo elo");
-   	 		x=0;
-   	 	}
-   	 	else if(y>=this.getHeight())
-   	 	{
-   	 		y=0;
-   	 	}
-    }
+		);
+
+		ChartPanel chartPanel=new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(300,300 ));
+		JPanel paintpanel=new JPanel();
+		this.add(chartPanel);
+		
+	}
 
 	public void play()
-	   {
-			//System.out.println("dziala");
+	   {	
 			this.setBackground(Color.white);
-	        	x+=3;
-	            y+=3;
-	            this.repaint();//tells the panel to redraw itself so we can see the circle in new location
-	            try
-	            {
-	            	Thread.sleep(5);
-	            }catch(Exception e)
-	            {}
-	            
+	        x++;
+	        y++;
+	        this.repaint();//tells the panel to redraw itself so we can see the circle in new location
+	        try
+	        {
+	          	Thread.sleep(25);
+	        }catch(Exception e)
+	        {}
 	   }
 
 }

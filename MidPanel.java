@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
@@ -31,50 +35,70 @@ public class MidPanel extends JPanel
 	int x=0;
 	Random rand;
 	int y=0;
+	Object m1,m2;
+	Rope l1;
+	boolean start=false;
+	double dt;
+	double k;
+	double mass1,mass2;
 	MidPanel()
 	{
-		rand=new Random();
+
+	
 		this.setMinimumSize(new Dimension(1000,1000));
 		this.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		this.setBackground(Color.white);
+		
 	}
 	public void paintComponent(Graphics g)
     { 
-		//System.out.println("dziala");
-		this.setBackground(Color.white);
-		g.setColor(Color.WHITE);
-   	 	g.fillRect(0,0,this.getWidth(),this.getHeight());
-   	 	g.setColor(Color.GREEN);
-   	 	g.fillOval(x,y,Math.abs(150-x),Math.abs(150-y));
-   	 	g.setColor(Color.RED);
-	 	g.fillOval(x,y+300,Math.abs(150-y),Math.abs(150-x));
-	 	g.setColor(Color.BLUE);
-	 	g.fillOval(x+300,y,Math.abs(150-x),Math.abs(150-y));
-   	 	if(x>=this.getWidth())
-   	 	{
-   	 		//System.out.println("elo elo");
-   	 		x=0;
-   	 		y=0;
-   	 	}
-   	 	else if(y>=this.getHeight())
-   	 	{
-   	 		x=0;
-   	 		y=0;
-   	 	}
-    }
-
-	public void play()
-	   {
+		super.paintComponent(g);
+		
+		Graphics2D g2d = (Graphics2D) g;
+		if(start)
+		{
 			//System.out.println("dziala");
-			this.setBackground(Color.white);
-	        	x+=3;
-	            y+=3;
-	            this.repaint();//tells the panel to redraw itself so we can see the circle in new location
-	            try
-	            {
-	            	Thread.sleep(5);
-	            }catch(Exception e)
-	            {}
-	            
-	   }
+			g2d.setColor(Color.WHITE);
+	   	 	g2d.fillRect(0,0,this.getWidth(),this.getHeight());
+	   	 	
+	   	 	g2d.setColor(Color.GREEN);
+	   	 	g2d.fillOval((int) m1.x,(int) m1.y,30,30);
+	   	 	g2d.setColor(Color.RED);
+	   	 	g2d.fillOval((int) m2.x,(int) m2.y,30,30);
+	   	 	if(m1.x>=this.getWidth() )
+	   	 	{
+	   	 		m1.x=m1.x-this.getWidth()/2;
+	   	 		m2.x=m2.x-this.getWidth()/2;
+	   	 	}
+	   	 		
+	   	 	else if (m2.x>=this.getWidth())
+	   	 	{
+	   	 		m1.x=m1.x-this.getWidth()/2;
+	   	 		m2.x=m2.x-this.getWidth()/2;
+	   	 	}
+	   	 	else if(m1.y>=this.getHeight())
+	   	 	{
+	   	 		m1.y=m1.y-this.getHeight()/2;
+	   	 		m2.y=m2.y-this.getHeight()/2;
+	   	 	}
+	   	 	else if(m2.y>=this.getHeight())
+	   	 	{
+	   	 		m1.y=m1.y-this.getHeight()/2;
+	   	 		m2.y=m2.y-this.getHeight()/2;
+	   	 	}
+		}
+	
+    }
+	
+	
+	void startAnimation()
+	{
+		start=true;
+		m1=new Object(0,this.getHeight()/2,0,0,0,0,mass1);
+		m2=new Object(100,this.getHeight()/2 ,0,20,0,0,mass2);
+		l1=new Rope(m1,m2);
+		ExecutorService ex=Executors.newFixedThreadPool(1);
+		ex.submit(new RunAnimation(this));
+	}
 
 }

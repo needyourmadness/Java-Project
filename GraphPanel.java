@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -29,9 +30,9 @@ public class GraphPanel extends JPanel
 	GraphPanel()
 	{
 		
-		this.setLayout(new BorderLayout());
+		this.setPreferredSize(new java.awt.Dimension(300,300 ));
 		graph=new Graph();
-		this.add(graph,BorderLayout.CENTER);
+		this.add(graph);
 	}
 
 	

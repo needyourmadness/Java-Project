@@ -3,12 +3,15 @@ package project;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.*;
 import java.awt.event.*;
 
 public class Options extends JPanel
 {
+	MidPanel middle;
 	
 	JLabel am;					//Wszystkie etykietki
 	JLabel bm;
@@ -16,8 +19,8 @@ public class Options extends JPanel
 	JLabel mi;
 	JLabel forces;
 	
-	JSlider slider1;			//slidery do mas i wspó³czynników
-	JSlider slider2;
+	JSlider sliderm1;			//slidery do mas i wspó³czynników
+	JSlider sliderm2;
 	JSlider sliderK;
 	JSlider sliderMi;
 	
@@ -38,7 +41,9 @@ public class Options extends JPanel
 	
 	JPanel[][] pos;				//Tablica paneli do ogarniêcia layoutu
 	
-	public Options() {
+	public Options(MidPanel mid) 
+	{
+		middle=mid;
 		this.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		this.setLayout(new GridLayout(6,2));	//Rozmieszczam panele
 		pos = new JPanel[6][2];
@@ -60,13 +65,13 @@ public class Options extends JPanel
 		mi = new JLabel("Wspó³czynnik lepkoœci");
 		forces = new JLabel("Uwzglêdnij");
 		
-		slider1 = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
-		slider2 = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
-		sliderK = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
-		sliderMi = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+		sliderm1 = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
+		sliderm2 = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
+		sliderK = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+		sliderMi = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
 		
-		amEcho = new JLabel(String.format("%.2f kg", (double) slider1.getValue()));
-		bmEcho = new JLabel(String.format("%.2f kg", (double) slider2.getValue()));
+		amEcho = new JLabel(String.format("%.2f kg", (double) sliderm1.getValue()));
+		bmEcho = new JLabel(String.format("%.2f kg", (double) sliderm2.getValue()));
 		kEcho = new JLabel(String.format("%.2f N/m", (double) sliderK.getValue()));
 		miEcho = new JLabel(String.format("%.2f kg*m/s", (double) sliderMi.getValue()));
 		Border b = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -75,10 +80,12 @@ public class Options extends JPanel
 		kEcho.setBorder(b);
 		miEcho.setBorder(b);
 		
-		slider1.addChangeListener(new ValueListener(amEcho, slider1, 10, "kg"));
-		slider2.addChangeListener(new ValueListener(bmEcho, slider2, 10, "kg"));
-		sliderK.addChangeListener(new ValueListener(kEcho, sliderK, 20, "N/m"));
-		sliderMi.addChangeListener(new ValueListener(miEcho, sliderMi, 20, "kg*m/s"));
+		
+		sliderm1.addChangeListener(new ValueListener(amEcho, sliderm1, 10, "kg",middle,1));
+				
+		sliderm2.addChangeListener(new ValueListener(bmEcho, sliderm2, 10, "kg",middle,2));
+		sliderK.addChangeListener(new ValueListener(kEcho, sliderK, 20, "N/m",middle,4));
+		sliderMi.addChangeListener(new ValueListener(miEcho, sliderMi, 20, "kg*m/s",middle,5));
 		
 		String[] functions = {"m(t) = m", "m(t) = m*e^(-xt)"};
 		mass1Function = new JComboBox<String>(functions);
@@ -100,8 +107,8 @@ public class Options extends JPanel
 		pos[0][0].add(amEcho, BorderLayout.PAGE_END);
 		pos[0][1].add(bm, BorderLayout.PAGE_START);
 		pos[0][1].add(bmEcho, BorderLayout.PAGE_END);
-		pos[0][0].add(slider1, BorderLayout.CENTER);
-		pos[0][1].add(slider2, BorderLayout.CENTER);
+		pos[0][0].add(sliderm1, BorderLayout.CENTER);
+		pos[0][1].add(sliderm2, BorderLayout.CENTER);
 		pos[1][0].add(mass1Change);
 		pos[1][0].add(mass1Function);
 		pos[1][1].add(mass2Change);
@@ -119,3 +126,4 @@ public class Options extends JPanel
 		pos[5][1].add(fl);
 	}
 }
+
