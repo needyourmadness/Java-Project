@@ -9,23 +9,42 @@ public class RunAnimation implements Runnable
 	MidPanel middle;
 	double K;
 	double dt;
-	RunAnimation(MidPanel mid)
+	LeftPanel left;
+	double correction;
+	static double stoptime=0;
+	
+	RunAnimation(MidPanel mid,LeftPanel leftt)
 	{
-		
+		left=leftt;
 		middle=mid;
 		dt=middle.dt;
 		K=middle.k;
+		correction=middle.getHeight()/2;
 		
 	}
 	@Override
 	public void run() //w¹tek s³u¿¹cy do uruchamiania animacji
 	{
-		System.out.println("m1 :"+middle.m1.mass+"m2 :"+middle.m2.mass+"dt :"+middle.dt);
-		for(double t=0;t<100; t+=dt)
+		double t=stoptime;
+		//System.out.println("m1 :"+middle.m1.mass+"m2 :"+middle.m2.mass+"dt :"+middle.dt);
+		for(;t<100; t+=dt)
 		{
+			
+			if(middle.stop)
+			{
+				stoptime=t;
+				//System.out.println("stoptime:"+ stoptime);
+				break;
+			}	
 			calculateAnimationx(dt);
+			left.series1x.add(t,middle.m1.x);
+			left.series2x.add(t,middle.m2.x);
+			
 			calculateAnimationy(dt);
+			left.series1y.add(t,middle.m1.y-correction);
+			left.series2y.add(t,middle.m2.y-correction);
 			middle.repaint();
+			left.repaint();
 			try
 			{
 				Thread.sleep((long) (dt*1000));
@@ -35,8 +54,10 @@ public class RunAnimation implements Runnable
 				
 				e.printStackTrace();
 			}
-			
+		
 		}
+		middle.check=true;
+		middle.stop=true;
 		
 	}
 	void calculateAnimationx(double dt) //oblicza os x tutaj chyba trzeba dac przypadki wyboru
@@ -49,6 +70,9 @@ public class RunAnimation implements Runnable
 		middle.m2.vx+=middle.m2.ax*dt;
 		middle.m1.x+=middle.m1.vx*dt;
 		middle.m2.x+=middle.m2.vx*dt;
+		middle.m1.xn.add(middle.m1.x);
+		middle.m2.xn.add(middle.m2.x);
+		
 		
 	}
 	void calculateAnimationy(double dt) //oblicza os y tutaj chyba trzeba dac przypadki wyboru
@@ -61,5 +85,7 @@ public class RunAnimation implements Runnable
 		middle.m2.vy+=middle.m2.ay*dt;
 		middle.m1.y+=middle.m1.vy*dt;
 		middle.m2.y+=middle.m2.vy*dt;
+		middle.m1.yn.add(middle.m1.y);
+		middle.m2.yn.add(middle.m2.y);
 	}
 }

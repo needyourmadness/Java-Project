@@ -24,23 +24,10 @@ public class Window extends JFrame
 		this.setSize(1000,1440);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout(10,10));
-		
-		mid = new MidPanel();
-		//gorny panel 
-		//dolny panel z guziczkiem
-		
-		
-		bottom=new BottomPanel(mid);
-		
-		
-		//lewy panel
 		left= new LeftPanel();
-
-		
-
-		
-		
-		topPanel=new TopPanel(mid);
+		mid = new MidPanel(left);
+		bottom=new BottomPanel(mid);
+		topPanel=new TopPanel(mid,left);
 
 
 		right=new Options(mid);

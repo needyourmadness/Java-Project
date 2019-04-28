@@ -29,11 +29,8 @@ public class Rope
 		
 		//r=Math.sqrt(Math.pow((mm2.x-mm1.x), 2)+Math.pow((mm2.y-mm1.y),2));
 		//System.out.println(r);
-		if((mm2.y-mm1.y)>=0)
-			alfa=(Math.atan2((mm2.y-mm1.y),(mm2.x-mm1.x)));
-		else
-			alfa=Math.PI+(Math.atan2((mm2.y-mm1.y),(mm2.x-mm1.x)));
-		System.out.println(alfa*180/Math.PI);
+		alfa=(Math.atan2((mm2.y-mm1.y),(mm2.x-mm1.x)));
+		//System.out.println(alfa*180/Math.PI);
 		/*if(Math.abs(mm1.x-mm2.x)==0)
 		{
 			alfa=-Math.PI/2;
@@ -96,7 +93,7 @@ public class Rope
 				
 		}
 		//System.out.println("sinfi: "+l[1]/l0);
-		System.out.println("jedynka tryg: "+(Math.pow(l[0]/l0,2)+Math.pow(l[1]/l0, 2)));
+		//System.out.println("jedynka tryg: "+(Math.pow(l[0]/l0,2)+Math.pow(l[1]/l0, 2)));
 		
 		return (l[1]-Math.abs(mm1.y-mm2.y));
 		

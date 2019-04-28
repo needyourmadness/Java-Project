@@ -23,18 +23,16 @@ import javax.swing.event.ChangeListener;
 
 public class TopPanel extends JPanel
 {
-	ButtonTopPanel buttonPanel;
 	MenuTopPanel menuPanel;
 	MidPanel middle;
-	TopPanel(MidPanel mid)
+	LeftPanel left;
+	TopPanel(MidPanel mid,LeftPanel lef)
 	{
+		left=lef;
 		middle=mid;
-		buttonPanel=new ButtonTopPanel();
-		//this.setBorder(BorderFactory.createLineBorder(Color.black));
-		menuPanel=new MenuTopPanel(middle);
-		this.setLayout(new GridLayout(2,1));
+		menuPanel=new MenuTopPanel(middle,left);
+		this.setLayout(new GridLayout(1,1));
 		this.add(menuPanel);
-		this.add(buttonPanel);
 
 	}
 }

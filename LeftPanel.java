@@ -25,23 +25,39 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 public class LeftPanel extends JPanel
 {
 	//JButton button1, button2;
 	
 	GraphPanel panelgraph1x,panelgraph1y,panelgraph2x,panelgraph2y;
+	int preferedx,preferedy;
+	XYSeries series1x;
+	XYSeries series1y;
+	XYSeries series2x;
+	XYSeries series2y;
 	LeftPanel()
 	{
-		this.setLayout(new GridLayout(4,1,10,10));
+		preferedx=300;
+		preferedy=230;
+		this.setLayout(new GridLayout(4,1));
 		this.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		
-		panelgraph1x=new GraphPanel();
-		panelgraph1y=new GraphPanel();
-		panelgraph2x=new GraphPanel();
-		panelgraph2y=new GraphPanel();
+		series1x = new XYSeries("x1(t)");
+		series1y=new XYSeries("y1(t)");
+		series2x=new XYSeries("x2(t)");
+		series2y=new XYSeries("y2(t)");
 		
-
-	
+		panelgraph1x=new GraphPanel("x1(t)",series1x,preferedx,preferedy);
+		panelgraph1y=new GraphPanel("y1(t)",series1y,preferedx,preferedy);
+		panelgraph2x=new GraphPanel("x2(t)",series2x,preferedx,preferedy);
+		panelgraph2y=new GraphPanel("y2(t)",series2y,preferedx,preferedy);
 		
 		this.add(panelgraph1x);
 		this.add(panelgraph1y);

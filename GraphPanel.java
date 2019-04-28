@@ -1,4 +1,5 @@
 package project;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,15 +25,45 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 public class GraphPanel extends JPanel
 {
-	Graph graph;
-	GraphPanel()
+	JFreeChart chart;
+	GraphPanel(String name,XYSeries series,int preferedx,int preferedy)
 	{
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(series);
+		//Tworzymy wykres XY
+				chart = ChartFactory.createXYLineChart(
+				" ",//Tytul
+				"t", // opisy osi
+				name,
+				dataset, // Dane
+				PlotOrientation.VERTICAL, // Orjentacja wykresu
+				false, // legenda
+				true, // tooltips
+				false
+				
+				);
+		XYPlot plot=chart.getXYPlot();
+		plot.setBackgroundPaint(Color.white);
+		plot.setRangeGridlinesVisible(true);
+		plot.setRangeGridlinePaint(Color.BLACK);
+		plot.setDomainGridlinesVisible(true);
+		plot.setDomainGridlinePaint(Color.BLACK);
 		
-		this.setPreferredSize(new java.awt.Dimension(300,300 ));
-		graph=new Graph();
-		this.add(graph);
+		ChartPanel chartPanel=new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(preferedx,preferedy ));
+		this.add(chartPanel);
+		
 	}
 
 	
