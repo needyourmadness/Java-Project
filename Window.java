@@ -27,10 +27,10 @@ public class Window extends JFrame
 		left= new LeftPanel();
 		mid = new MidPanel(left);
 		bottom=new BottomPanel(mid);
-		topPanel=new TopPanel(mid,left);
-
-
 		right=new Options(mid);
+		topPanel=new TopPanel(mid,left,right);
+
+
 		
 	
 	
