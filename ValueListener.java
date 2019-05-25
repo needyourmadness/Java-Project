@@ -12,7 +12,8 @@ public class ValueListener implements ChangeListener {
 	String unit;
 	MidPanel mid;
 	int actionnumber;//w zaleznosci od tego co ma robic bedzie mialo swoj numerek bo tak to dt konfilktuje z m1 itd
-	//1 to masa1, 2 to masa2, 3 to krok calkowy,4 to stala sprezystosci, 5 to mi
+	//1 to masa1, 2 to masa2, 3 to krok calkowy,4 to stala sprezystosci, 5 to mi, 6 i 7 to wsp. zmiany masy, 8 to sila
+	//aerocostam
 	
 	public ValueListener(JLabel l, JSlider s, String u,MidPanel middle,int anumber) {
 		actionnumber=anumber;
@@ -29,6 +30,16 @@ public class ValueListener implements ChangeListener {
 			mid.dt=slider.getValue()/divider;
 		else if(actionnumber==4)
 			mid.k=slider.getValue()/divider;
+		else if(actionnumber==5)
+			mid.mi=slider.getValue()/divider;
+		else if(actionnumber==6) 
+			mid.h[0]=slider.getValue()/divider;
+		else if(actionnumber==7) 
+			mid.h[1]=slider.getValue()/divider;
+		else if(actionnumber==8) 
+			mid.eta=slider.getValue()/divider;
+		String value = String.format("%.3f " + unit, slider.getValue()/divider);
+		label.setText(value);
 
 	}
 	
@@ -48,6 +59,16 @@ public class ValueListener implements ChangeListener {
 			mid.dt=slider.getValue()/divider;
 		else if(actionnumber==4)
 			mid.k=slider.getValue()/divider;
+		else if(actionnumber==5)
+			mid.mi=slider.getValue()/divider;
+		else if(actionnumber==6) 
+			mid.h[0]=slider.getValue()/divider;
+		else if(actionnumber==7) 
+			mid.h[1]=slider.getValue()/divider;
+		else if(actionnumber==8) 
+			mid.eta=slider.getValue()/divider;
+		String value = String.format("%.3f " + unit, slider.getValue()/divider);
+		label.setText(value);
 	
 	}
 
@@ -62,7 +83,15 @@ public class ValueListener implements ChangeListener {
 			mid.dt=slider.getValue()/divider;
 		else if(actionnumber==4)
 			mid.k=slider.getValue()/divider;
-		String value = String.format("%.2f " + unit, slider.getValue()/divider);
+		else if(actionnumber==5)
+			mid.mi=slider.getValue()/divider;
+		else if(actionnumber==6) 
+			mid.h[0]=slider.getValue()/divider;
+		else if(actionnumber==7) 
+			mid.h[1]=slider.getValue()/divider;
+		else if(actionnumber==8) 
+			mid.eta=slider.getValue()/divider;
+		String value = String.format("%.3f " + unit, slider.getValue()/divider);
 		label.setText(value);
 
 	}

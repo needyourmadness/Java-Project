@@ -16,6 +16,10 @@ public class Object
 	double az;
 	ArrayList<Double> xn;
 	ArrayList<Double> yn;
+	ArrayList<Double> zn;
+	int sizex;
+	int sizey;
+	
 	Object(double xx,double yy,double zz,double vvx,double vvy,double vvz,double m)
 	{
 		x=xx;
@@ -25,8 +29,12 @@ public class Object
 		vy=vvy;
 		vz=vvz;
 		mass=m;
+		sizex=30;
+		sizey=30;
 		xn=new ArrayList<Double>();
 		yn=new ArrayList<Double>();
+		zn=new ArrayList<Double>();
+		//System.out.println(vx);
 	}
 
 }
