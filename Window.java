@@ -18,22 +18,20 @@ public class Window extends JFrame
 	LeftPanel left;
 	BottomPanel bottom;
 	TopPanel topPanel;
-
+	static void ChangeLayout()
+	{
+		
+	}
 	Window()
 	{
-		this.setSize(1000,1440);
+		this.setSize(1920,1080);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout(10,10));
 		left= new LeftPanel();
 		mid = new MidPanel(left);
 		bottom=new BottomPanel(mid);
-		topPanel=new TopPanel(mid,left);
-
-
 		right=new Options(mid);
-		
-	
-	
+		topPanel=new TopPanel(mid,left,right,this);
 		this.add(topPanel,BorderLayout.PAGE_START);
 		this.add(bottom,BorderLayout.PAGE_END);
 		this.add(left,BorderLayout.LINE_START);
@@ -46,7 +44,7 @@ public class Window extends JFrame
 
 	public static void main(String[] args)
 	{
-		//W¹tki
+		//W¹tek uruchamiajacy main
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			

@@ -43,11 +43,14 @@ public class BottomPanel extends JPanel {
 		step = new JLabel("Krok symulacji",SwingConstants.CENTER);
 		panel2.add(step, BorderLayout.PAGE_START);
 		
-		stepSlider = new JSlider(1, 1000, 10);
+		stepSlider = new JSlider(1, 100, 10);
 		panel2.add(stepSlider, BorderLayout.CENTER);
 		
 		stepEcho = new JLabel(String.format("%.2f s", (double) stepSlider.getValue()),SwingConstants.CENTER);
 		panel2.add(stepEcho, BorderLayout.LINE_END);
 		stepSlider.addChangeListener(new ValueListener(stepEcho, stepSlider, 1000, "s",middle,3));
+		stepSlider.setMajorTickSpacing(50);
+		stepSlider.setMinorTickSpacing(5);
+		stepSlider.setPaintTicks(true);
 	}
 }

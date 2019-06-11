@@ -26,11 +26,13 @@ public class TopPanel extends JPanel
 	MenuTopPanel menuPanel;
 	MidPanel middle;
 	LeftPanel left;
-	TopPanel(MidPanel mid,LeftPanel lef)
+	Options right;
+	TopPanel(MidPanel mid,LeftPanel lef,Options opt,Window window)
 	{
+		right=opt;
 		left=lef;
 		middle=mid;
-		menuPanel=new MenuTopPanel(middle,left);
+		menuPanel=new MenuTopPanel(middle,left,right,window);
 		this.setLayout(new GridLayout(1,1));
 		this.add(menuPanel);
 

@@ -36,33 +36,45 @@ public class LeftPanel extends JPanel
 {
 	//JButton button1, button2;
 	
-	GraphPanel panelgraph1x,panelgraph1y,panelgraph2x,panelgraph2y;
+	GraphPanel panelgraph1x,panelgraph1y,panelgraph1z,panelgraph2x,panelgraph2y,panelgraph2z;
 	int preferedx,preferedy;
 	XYSeries series1x;
 	XYSeries series1y;
+	XYSeries series1z;
+	
 	XYSeries series2x;
 	XYSeries series2y;
+	XYSeries series2z;
+	
 	LeftPanel()
 	{
 		preferedx=300;
-		preferedy=230;
-		this.setLayout(new GridLayout(4,1));
+		preferedy=160;
+		this.setLayout(new GridLayout(6,1));
 		this.setBorder( BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		
 		series1x = new XYSeries("x1(t)");
 		series1y=new XYSeries("y1(t)");
+		series1z=new XYSeries("z1(t)");
+		
 		series2x=new XYSeries("x2(t)");
 		series2y=new XYSeries("y2(t)");
+		series2z=new XYSeries("z2(t)");
 		
 		panelgraph1x=new GraphPanel("x1(t)",series1x,preferedx,preferedy);
 		panelgraph1y=new GraphPanel("y1(t)",series1y,preferedx,preferedy);
+		panelgraph1z=new GraphPanel("z1(t)",series1z,preferedx,preferedy);
+		
 		panelgraph2x=new GraphPanel("x2(t)",series2x,preferedx,preferedy);
 		panelgraph2y=new GraphPanel("y2(t)",series2y,preferedx,preferedy);
+		panelgraph2z=new GraphPanel("z2(t)",series2z,preferedx,preferedy);
 		
 		this.add(panelgraph1x);
 		this.add(panelgraph1y);
+		this.add(panelgraph1z);
 		this.add(panelgraph2x);
 		this.add(panelgraph2y);
+		this.add(panelgraph2z);
 
 	}
 }
